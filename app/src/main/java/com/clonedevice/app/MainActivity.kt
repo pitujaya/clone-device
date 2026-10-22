@@ -79,7 +79,12 @@ class MainActivity : AppCompatActivity() {
                 try {
                     startActivity(i)
                 } catch (e: Exception) {
-                    startActivity(Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESSION_PERMISSION))
+                    startActivity(
+                        Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.parse("package:$packageName")
+                        )
+                    )
                 }
             } else {
                 toast("Tidak perlu izin ini di Android bawah 11")

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
+import android.view.accessibility.StrokeDescription
 
 /**
  * AccessibilityService untuk kendali device:

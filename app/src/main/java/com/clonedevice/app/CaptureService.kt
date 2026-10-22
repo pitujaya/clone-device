@@ -3,15 +3,16 @@ package com.clonedevice.app
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.graphics.Bitmap
+import android.graphics.ImageFormat
 import android.graphics.PixelFormat
 import android.hardware.display.DisplayManager
 import android.hardware.display.VirtualDisplay
 import android.media.Image
-import android.media.ImageFormat
 import android.media.ImageReader
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
@@ -331,7 +332,7 @@ class CaptureService : Service() {
     }
 
     private fun sendMeta() {
-        ws?.broadcast(Protocol.hello(this))
+        ws?.sendAll(Protocol.hello(this))
     }
 
     /* ------------------------- cleanup ------------------------- */

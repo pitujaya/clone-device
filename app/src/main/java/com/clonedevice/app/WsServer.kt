@@ -59,10 +59,10 @@ class WsServer(port: Int, private val handler: Handler) : WebSocketServer(InetSo
         sb.append("\",\"seq\":").append(seq)
         sb.append(",\"ts\":").append(System.currentTimeMillis())
         sb.append(",\"data\":\"").append(b64).append("\"}")
-        broadcast(sb.toString())
+        sendAll(sb.toString())
     }
 
-    fun broadcast(text: String) {
+    fun sendAll(text: String) {
         val list = synchronized(conns) { conns.toList() }
         for (c in list) {
             try {
