@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import android.view.accessibility.StrokeDescription
 
 /**
  * AccessibilityService untuk kendali device:
@@ -49,7 +48,7 @@ class ControlService : AccessibilityService() {
     /* ---------------------- gestur ---------------------- */
     fun tap(x: Int, y: Int) {
         val path = Path().apply { moveTo(x.toFloat(), y.toFloat()) }
-        val stroke = StrokeDescription(path, 0, TAP_MS)
+        val stroke = GestureDescription.StrokeDescription(path, 0L, TAP_MS)
         val gesture = GestureDescription.Builder().addStroke(stroke).build()
         val ok = dispatchGesture(gesture, null, null)
         Log.i(TAG, "tap $x,$y -> $ok")
@@ -61,7 +60,7 @@ class ControlService : AccessibilityService() {
             lineTo(x2.toFloat(), y2.toFloat())
         }
         val dur = durationMs.coerceIn(120L, 3000L)
-        val stroke = StrokeDescription(path, 0, dur)
+        val stroke = GestureDescription.StrokeDescription(path, 0L, dur)
         val gesture = GestureDescription.Builder().addStroke(stroke).build()
         val ok = dispatchGesture(gesture, null, null)
         Log.i(TAG, "swipe $x1,$y1 -> $x2,$y2 (${dur}ms) -> $ok")

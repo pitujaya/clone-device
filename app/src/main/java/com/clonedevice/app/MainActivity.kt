@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnStorage).setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val i = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESSION_PERMISSION)
+                val i = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
                 i.data = Uri.parse("package:$packageName")
                 try {
                     startActivity(i)

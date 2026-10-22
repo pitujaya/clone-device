@@ -8,7 +8,6 @@ import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.graphics.Bitmap
-import android.graphics.ImageFormat
 import android.graphics.PixelFormat
 import android.hardware.display.DisplayManager
 import android.hardware.display.VirtualDisplay
@@ -134,7 +133,7 @@ class CaptureService : Service() {
         captureThread = thread
         captureHandler = Handler(thread.looper)
 
-        val r = ImageReader.newInstance(w, h, ImageFormat.RGBA_8888, 2)
+        val r = ImageReader.newInstance(w, h, PixelFormat.RGBA_8888, 2)
         r.setOnImageAvailableListener({ reader -> onImageAvailable(reader) }, captureHandler)
         reader = r
 
@@ -389,9 +388,9 @@ class CaptureService : Service() {
             Notification.Builder(this)
         }
         val stopIntent = Intent(this, CaptureService::class.java).setAction(ACTION_STOP)
-        val pi = android.os.PendingIntent.getService(
+        val pi = PendingIntent.getService(
             this, 0, stopIntent,
-            android.os.PendingIntent.FLAG_UPDATE_CURRENT or android.os.PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         return builder
             .setContentTitle("Clone Device aktif")
