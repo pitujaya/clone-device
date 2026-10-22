@@ -36,11 +36,45 @@ pkg install openjdk-17
 gradle assembleDebug
 ```
 
-### Opsi D — GitHub Actions (tanpa PC)
+### Opsi D — GitHub Actions (tanpa PC) ⭐ paling praktis
 
-Tambahkan workflow `.github/workflows/build-apk.yml` di repo ini dengan
-`gradle/actions/setup-gradle` + `android-actions/setup-android`, lalu ambil
-artefak APK-nya. (Belum dibuat — bilang saja kalau mau.)
+Sudah jadi: `.github/workflows/build-apk.yml`. Setiap push ke `main` akan:
+
+1. job `test` — `npm ci` + `npm test` (18 tes)
+2. job `build` — unduh Java 17, Android SDK (platform 34 + build-tools 34.0.0),
+   Gradle 8.4, lalu `assembleDebug` + `assembleRelease`
+
+Hasilnya di artifact `clone-device-apk` yang bisa diunduh dari tab **Actions**
+di repo, atau otomatis:
+
+```bash
+gh run download --repo pitujaya/clone-device --name clone-device-apk
+```
+
+> Catatan: agar push file `.github/workflows/` diterima, token GitHub harus
+> punya scope `repo` **dan** `workflow`. Token OAuth biasa dari `gh` kalau
+> scope `workflow` belum di-*refresh* akan ditolak dengan pesan
+> "refusing to allow an OAuth App to create or update workflow ... without
+> `workflow` scope".
+
+Untuk install di HP:
+
+```bash
+# salin ke folder Download HP, lalu buka lewat file manager & install
+cp app-debug.apk /storage/emulated/0/Download/
+```
+
+### Verifikasi API Android tanpa menunggu CI
+
+`tools/verify-android.js` memeriksa semua `import android.*` dan anggota
+`Class.MEMBER` di kode Kotlin terhadap `android-all.jar` (API 34 asli),
+sehingga salah nama API ketahuan sebelum push:
+
+```bash
+curl -L -o android-all.jar \
+  https://repo1.maven.org/maven2/org/robolectric/android-all/14-robolectric-10818077/android-all-14-robolectric-10818077.jar
+node tools/verify-android.js android-all.jar .
+```
 
 ## Menjalankan server development di Termux
 
