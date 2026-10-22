@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Clone Device</string>
+    <string name="accessibility_label">Clone Device Remote Control</string>
+    <string name="accessibility_summary">Menyediakan kendali tap, swipe, dan tombol navigasi untuk Clone Device</string>
+    <string name="accessibility_desc">Aktifkan layanan ini agar Clone Device bisa mengirim perintah sentuh (tap, swipe, tombol Home/Back/Recents) ke device ini dari jaringan. Tidak ada data yang dikirim keluar device kecuali melalui jaringan lokal yang kamu pilih sendiri.</string>
+</resources>
